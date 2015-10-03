@@ -1,6 +1,6 @@
 <?php
 
-class tochkru_main
+class page_init
 {
     var $config = array(
         'mysql_host' => 'localhost',
@@ -115,15 +115,7 @@ class tochkru_main
         if ($days_num != 1) {
             $query = "INSERT INTO `tochkru_stat` SET `day`='$this->day', `mou`='$this->month' ,`year`='$this->year', `hits` = '1', hosts = '1'";
             $sql = mysql_query($query) or die(mysql_error());
-            $query = "DROP table tochkru_temp_stat";
-            $sql = mysql_query($query) or die(mysql_error());
-            $query = "CREATE TABLE IF NOT EXISTS `tochkru_temp_stat` (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
-            `ip` longtext COLLATE utf8_unicode_ci NOT NULL,
-            `time` int(11) NOT NULL,
-            `hits` int(11) NOT NULL,
-            PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;";
+            $query = "TRUNCATE tochkru_temp_stat";
             $sql = mysql_query($query) or die(mysql_error());
             $query = "INSERT INTO `tochkru_temp_stat` SET `time`='$this->time', `hits`=1, `ip`='$this->ip'";
             $sql = mysql_query($query) or die(mysql_error());
