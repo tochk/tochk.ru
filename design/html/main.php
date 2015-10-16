@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="/design/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="/design/images/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <script type="text/javascript" src="/engine/js/pjax-standalone.min.js"></script>
-    <script type='text/javascript'>pjax.connect();</script>
+    <!--script type="text/javascript" src="/engine/js/pjax-standalone.min.js"></script-->
+    <!--script type='text/javascript'>pjax.connect();</script-->
 </head>
 <body>
 <div id='topbar'>

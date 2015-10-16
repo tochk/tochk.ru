@@ -35,4 +35,3 @@ if (!empty($_POST)) {
 }
 include('./engine/main_stat.php');
 header("Location: {$_SERVER['HTTP_REFERER']}");
-?>

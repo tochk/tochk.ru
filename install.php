@@ -1,9 +1,4 @@
 <?php
-/**
- * tochk.ru CMS installer for v1.01.00
- * by bezumnytochk
- * 22.08.2014
- **/
 include('./engine/classes_main.php');
 $main = new tochkru_main();
 $main->installer_mysql_conn();
@@ -49,8 +44,7 @@ $query = "CREATE TABLE IF NOT EXISTS `tochkru_index` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;";
 $sql = mysql_query($query) or die(mysql_error());
 $query = "INSERT INTO `tochkru_index` (`id`, `time`, `name`, `comment`, `url`, `img_url`, `type`, `pr`) VALUES
-(1, 1400000000, 'Файлхостинг', 'Доступен только для зарегестрированных пользователей', '/ftp/', '', 'SR', 500),
-(2, 1400000000, 'Исходный код на GitHub', 'Сайт работает на tochk.ru CMS', '/ftp/', '', 'PR', 1000);";
+(1, 1400000000, 'Исходный код на GitHub', 'Сайт работает на tochk.ru CMS', '/ftp/', '', 'PR', 1000);";
 $sql = mysql_query($query) or die(mysql_error());
 $query = "CREATE TABLE IF NOT EXISTS `tochkru_stat_pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -65,4 +59,3 @@ $query = "CREATE TABLE IF NOT EXISTS `tochkru_stat_pages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 $sql = mysql_query($query) or die(mysql_error());
-?>
