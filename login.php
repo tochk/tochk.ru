@@ -1,12 +1,17 @@
 <?php
 session_start();
-include('./engine/timer_init.php');
-include('./engine/mysql_connect.php');
-include('./engine/history.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+function __autoload($class_name)
+{
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/engine/classes/' . $class_name . '.php';
+}
+
+$main = new page_init();
+$main->std_page_init();
 if ($_GET['logout'] == 1) {
     unset($_SESSION['id']);
     unset($_SESSION['login']);
-    include('./engine/main_stat.php');
+    $main->timer_save();
     header("Location: /");
     exit();
 }
@@ -17,8 +22,7 @@ if (!empty($_POST)) {
     $sql = mysql_query($query) or die(mysql_error());
     if (mysql_num_rows($sql) == 1) {
         $row = mysql_fetch_assoc($sql);
-        $salt = $row['salt'];
-        $password = hash('sha256', md5(md5($password) . $salt));
+        $password = hash('sha256', hash('sha256', $password) . $row['salt']);
         $query = "SELECT `id` FROM `users` WHERE `login`='$login' AND `password`='$password' LIMIT 1";
         $sql = mysql_query($query) or die(mysql_error());
         $row = mysql_fetch_assoc($sql);
@@ -32,6 +36,8 @@ if (!empty($_POST)) {
     } else {
         $_SESSION['log_err'] = 1;
     }
+} else {
+    $_SESSION['log_err'] = 1;
 }
-include('./engine/main_stat.php');
+$main->timer_save();
 header("Location: {$_SERVER['HTTP_REFERER']}");

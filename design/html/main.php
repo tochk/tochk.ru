@@ -38,7 +38,7 @@
 
         <div id="menu">
             <ul>
-                <li><a href="/news/" data-pjax='content'><img src="/design/images/menu/news.png"/></a></li>
+                <li><a href="/blog/" data-pjax='content'><img src="/design/images/menu/news.png"/></a></li>
                 <li><a href="/projects/" data-pjax='content'><img src="/design/images/menu/projects.png"/></a></li>
                 <li><a href="/services/" data-pjax='content'><img src="/design/images/menu/services.png"/></a></li>
                 <li><a href="/sandbox/" data-pjax='content'><img src="/design/images/menu/sandbox.png"/></a></li>
@@ -52,7 +52,7 @@
         <div id='footer'>
             <strong>
                 <h5 style="margin: 0;">Обо всех найденных багах и уязвимостях вы можете сообщить через <a
-                        href="/support/" data-pjax='content' data-title='Обратная связь' style="color: white;">обратную
+                        href="/order/" data-pjax='content' data-title='Обратная связь' style="color: white;">обратную
                         связь</a><br/>
                     Исходный код проекта доступен на <a href="https://github.com/madot/tochk.ru" target="_blank"
                                                         style="color: white;">GitHub</a>.</h5>

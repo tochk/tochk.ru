@@ -4,8 +4,9 @@ $title = "Главная";
 require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 function __autoload($class_name)
 {
-    include $_SERVER['DOCUMENT_ROOT'] . '/engine/classes/' . $class_name . '.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/engine/classes/' . $class_name . '.php';
 }
+
 $main = new page_init();
 $main->std_page_init();
 $content = "<br /><br />";
@@ -13,7 +14,7 @@ if ((isset($_SESSION['log_err'])) && ($_SESSION['log_err'] == 1)) {
     $content = $content . "<br /><h2><center>Неправильный логин или пароль</center></h2><br />";
     $_SESSION['log_err'] = 0;
 }
-$query = "SELECT * FROM `tochkru_index` ORDER BY pr DESC";
+$query = "SELECT * FROM `index` ORDER BY pr DESC";
 $result = mysql_query($query) or die(mysql_error());
 $index = mysql_fetch_array($result, MYSQL_ASSOC);
 while ($index) {
@@ -25,4 +26,4 @@ while ($index) {
 if ($main->admin == 1) $content = $content . "<h2><a href='/admin/index_create.php' style='margin: 0;'>Добавить ссылку на проект</a></h2>";
 else $content = $content . "<br />";
 $main->timer_save();
-$main->pjax_init($content, './design/html/main.php', $title);
+$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . './design/html/main.php', $title);

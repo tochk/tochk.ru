@@ -1,6 +1,6 @@
 <?php
 session_start();
-$title = "Создать новость";
+$title = "Редактировать новость";
 include('../engine/timer_init.php');
 include('../engine/mysql_connect.php');
 include('../engine/mysql_main_query.php');
@@ -14,9 +14,9 @@ $query = "SELECT * FROM `news` WHERE `id`='$newsid' LIMIT 1";
 $sql = mysql_query($query) or die(mysql_error());
 $row = mysql_fetch_assoc($sql);
 $content = "<br /><h4><center>
-<form action='/news/process.php?do=new' method='post'>
-Название: <input type='text' name='theme' size='25' /><br />
-Текст: <textarea name='text' cols='48' rows='8'></textarea><br />
+<form action='/blog/process.php?do=edit&id=$newsid' method='post'>
+Название: <input type='text' name='theme' size='25' value='{$row['name']}' /><br />
+Текст: <textarea name='text' cols='48' rows='8'>{$row['content']}</textarea><br />
 <input type='submit' value=' Сохранить ' />
 </form></center></h4>
 </div>";

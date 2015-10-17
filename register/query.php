@@ -8,13 +8,13 @@ if (isset($_SESSION['id'])) {
     header('Location: /');
     exit();
 }
-require_once('recaptchalib.php');
+/*require_once('recaptchalib.php');
 $privatekey = "recaptcha_private_key";
 $resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
 if (!$resp->is_valid) {
     $_SESSION['rcp_err'] = "<h2>Капча была введена неправильно.<br />Ошибка: " . $resp->error;
     $flag = 1;
-}
+}*/
 $login = mysql_real_escape_string($_POST['login']);
 $password = mysql_real_escape_string($_POST['password']);
 $password2 = mysql_real_escape_string($_POST['password2']);
@@ -23,11 +23,11 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
     $_SESSION['reg_err7'] = 1;
     $flag = 1;
 }
-if (strlen($login) < 4) {
+if (strlen($login) < 5) {
     $_SESSION['reg_err2'] = 1;
     $flag = 1;
 }
-if (strlen($password) < 4) {
+if (strlen($password) < 5) {
     $_SESSION['reg_err3'] = 1;
     $flag = 1;
 }
@@ -107,4 +107,3 @@ chdir("../images/");
 mkdir("$login");
 include('../engine/main_stat.php');
 header('Location: /');
-?>
