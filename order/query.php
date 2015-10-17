@@ -1,20 +1,23 @@
 <?php
 session_start();
-include('../engine/timer_init.php');
-include('../engine/mysql_connect.php');
-include('../engine/mysql_main_query.php');
-include('../engine/history.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+function __autoload($class_name)
+{
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/engine/classes/' . $class_name . '.php';
+}
+
+$main = new page_init();
+$main->std_page_init();
+
 $email = mysql_real_escape_string($_POST['author']);
 $name = mysql_real_escape_string($_POST['name']);
 $comment = mysql_real_escape_string($_POST['comment']);
 if ($comment == '') {
-    include('../engine/main_stat.php');
-    header('Location: /support/');
+    $main->timer_save();
+    header('Location: /order/');
     exit();
 }
-$prj = 'TOCHKRU';
-$query = "INSERT INTO `support` SET `name`='$name', `email` = '$email', `comment`='$comment', `time`='$time', `project`='$prj', `ip`='$stat_ip'";
+$query = "INSERT INTO `support` SET `name`='$name', `email` = '$email', `comment`='$comment', `time`='$main->time', `project`='TOCHKRU', `ip`='$main->ip'";
 $sql = mysql_query($query) or die(mysql_error());
-include('../engine/main_stat.php');
-header('Location: /support/?ok=1');
-?>
+$main->timer_save();
+header('Location: /order/?ok=1');
