@@ -1,10 +1,11 @@
 <?php
 session_start();
-$title = "Новости";
-include('../engine/timer_init.php');
-include('../engine/mysql_connect.php');
-include('../engine/mysql_main_query.php');
-include('../engine/history.php');
+$title = "Блог";
+require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+function __autoload($class_name)
+{
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/engine/classes/' . $class_name . '.php';
+}
 $content = "<br /><br /><br />";
 if ($admin == 1) $content = $content . "<a href=/news/new.php>Создать новость</a><br />";
 $result = mysql_query("SELECT * FROM news ORDER BY id DESC");
@@ -17,11 +18,5 @@ for ($i = 0; $i < $a; $i++) {
     $content = $content . "</h3><br />{$news['content']}<br /></div><br />";
     $news = mysql_fetch_array($result, MYSQL_ASSOC);
 }
-include('../engine/main_stat.php');
-if (isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] == 'true') {
-    echo $content;
-    echo "<title>$title - tochk.ru</title>";
-} else {
-    include('../design/html/main.php');
-}
-?>
+$main->timer_save();
+$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . './design/html/main.php', $title);
