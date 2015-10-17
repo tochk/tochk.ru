@@ -1,20 +1,17 @@
 <?php
 session_start();
-include('../engine/timer_init.php');
-include('../engine/mysql_connect.php');
-include('../engine/mysql_main_query.php');
-include('../engine/history.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+function __autoload($class_name)
+{
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/engine/classes/' . $class_name . '.php';
+}
+
 if (isset($_SESSION['id'])) {
     header('Location: /');
     exit();
 }
-/*require_once('recaptchalib.php');
-$privatekey = "recaptcha_private_key";
-$resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
-if (!$resp->is_valid) {
-    $_SESSION['rcp_err'] = "<h2>Капча была введена неправильно.<br />Ошибка: " . $resp->error;
-    $flag = 1;
-}*/
+$main = new page_init();
+$main->std_page_init();
 $login = mysql_real_escape_string($_POST['login']);
 $password = mysql_real_escape_string($_POST['password']);
 $password2 = mysql_real_escape_string($_POST['password2']);
@@ -57,41 +54,14 @@ $counter = strlen($pattern) - 1;
 for ($i = 0; $i < 3; $i++) {
     $salt .= $pattern{rand(0, $counter)};
 }
-$hashed_password = hash('sha256', md5(md5($password) . $salt));
+$hashed_password = hash('sha256', hash('sha256', $password) . $salt);
 $query = "INSERT INTO `users` SET `login`='$login', `email`='$email', `password`='$hashed_password', `salt`='$salt'";
 $sql = mysql_query($query) or die(mysql_error());
 $query = "SELECT `id` FROM `users` WHERE `login`='$login' LIMIT 1";
 $sql = mysql_query($query) or die(mysql_error());
 $row = mysql_fetch_assoc($sql);
 $id = $row['id'];
-mysql_select_db("screenshots") or die (mysql_error());
-$query = "CREATE TABLE `scrn_$id` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `file` text NOT NULL,
-  `author` varchar(32) NOT NULL DEFAULT '0',
-  `server` varchar(32) NOT NULL DEFAULT '0',
-  `size` int(11) NOT NULL DEFAULT '0',
-  `time` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;";
-$sql = mysql_query($query) or die(mysql_error());
-mysql_select_db("files") or die (mysql_error());
-$query = "CREATE TABLE `files_$id` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `file` text NOT NULL,
-  `name` tinytext NOT NULL,
-  `fkey` tinytext NOT NULL,
-  `author` varchar(32) NOT NULL DEFAULT '0',
-  `server` varchar(32) NOT NULL DEFAULT '0',
-  `size` int(11) NOT NULL DEFAULT '0',
-  `time` int(11) NOT NULL DEFAULT '0',
-  `access` int(11) NOT NULL DEFAULT '0',
-  `time2` int(11) NOT NULL DEFAULT '0',
-  `dl_num` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;";
-$sql = mysql_query($query) or die(mysql_error());
-mysql_select_db("logs") or die (mysql_error());
+/*mysql_select_db("logs") or die (mysql_error());
 $query = "CREATE TABLE `logs_$id` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `action` varchar(32) NOT NULL DEFAULT '0',
@@ -99,11 +69,7 @@ $query = "CREATE TABLE `logs_$id` (
   `time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;";
-$sql = mysql_query($query) or die(mysql_error());
+$sql = mysql_query($query) or die(mysql_error());*/
 $_SESSION['reg_ok'] = 1;
-chdir("../upload/files/");
-mkdir("$login");
-chdir("../images/");
-mkdir("$login");
-include('../engine/main_stat.php');
+$main->timer_save();
 header('Location: /');
