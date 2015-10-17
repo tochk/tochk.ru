@@ -14,7 +14,7 @@ if ((isset($_SESSION['log_err'])) && ($_SESSION['log_err'] == 1)) {
     $content = $content . "<br /><h2><center>Неправильный логин или пароль</center></h2><br />";
     $_SESSION['log_err'] = 0;
 }
-$query = "SELECT * FROM `index` ORDER BY pr DESC";
+$query = "SELECT * FROM `{$config['table_prefix']}index` ORDER BY pr DESC";
 $result = mysql_query($query) or die(mysql_error());
 $index = mysql_fetch_array($result, MYSQL_ASSOC);
 while ($index) {
