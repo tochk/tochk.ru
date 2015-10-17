@@ -40,8 +40,8 @@
             <ul>
                 <li><a href="/blog/" data-pjax='content'><img src="/design/images/menu/news.png"/></a></li>
                 <li><a href="/projects/" data-pjax='content'><img src="/design/images/menu/projects.png"/></a></li>
-                <li><a href="/services/" data-pjax='content'><img src="/design/images/menu/services.png"/></a></li>
-                <li><a href="/sandbox/" data-pjax='content'><img src="/design/images/menu/sandbox.png"/></a></li>
+                <li><a href="/portfolio/" data-pjax='content'><img src="/design/images/menu/services.png"/></a></li>
+                <li><a href="/info/" data-pjax='content'><img src="/design/images/menu/sandbox.png"/></a></li>
             </ul>
         </div>
     </div>
