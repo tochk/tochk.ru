@@ -126,13 +126,14 @@ class page_init
 
     public function timer_save()
     {
+        global $config;
         $temp = microtime();
         $temp = explode(" ", $temp);
         $this->timer["end"] = $temp[1] + $temp[0];
         $ms_conn = $this->timer["ms_conn"] - $this->timer["start"];
-        $ms_query = $this->timer["ms_query"] - $this->timer["start"];
-        $history = $this->timer["history"] - $this->timer["start"];
-        $end = $this->timer["end"] - $this->timer["start"];
+        $ms_query = $this->timer["ms_query"] - $this->timer["ms_conn"];
+        $history = $this->timer["history"] - $this->timer["ms_query"];
+        $end = $this->timer["end"] - $this->timer["history"];
         mysql_select_db("{$config['table_prefix']}main") or die(mysql_error());
         $query = "INSERT INTO `{$config['table_prefix']}stat_pages` SET `time`='$this->time', `ip`='$this->ip', `page`='$this->url', `ms_conn`='$ms_conn', `ms_query`='$ms_query', `history`='$history', `end`=$end, `reff`='$this->reffer'";
         $sql = mysql_query($query) or die(mysql_error());
