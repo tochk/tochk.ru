@@ -27,6 +27,7 @@
             <div id="header_top"></div>
     </div>
     <div id="left_menu">
+        <?php if (isset($_SESSION['id'])) { ?>
         <div id="block_for_left">
             <div id="head_left_menu">User_name</div>
             <div id="info_left_menu" style="font-size:16px;">
@@ -35,8 +36,8 @@
                 * - Текущие заказы <br>
                 * - Настройки <br>
             </div>
-        </div>
-        <div id="block_for_left">
+        </div> <?php } else { ?>
+        <div id="block_for_left" class="login">
             <div id="button_login_reg">SIGN IN</div>
             <form action="/login.php" method="post">
                 <input id="field_log_reg" type="text" placeholder="Логин" name="login" size=28/>
@@ -44,7 +45,7 @@
                 <input id="button_log" type="submit" style="font-size:15px;" value=" Войти "/>
             </form>
         </div>
-        <div id="block_for_left">
+        <div id="block_for_left" class="register">
             <div id="button_login_reg">SIGN UP</div>
             <form action="/login.php" method="post">
                 <input id="field_log_reg" type="text" placeholder="Логин" name="login" size=28/>
@@ -54,6 +55,7 @@
                 <input id="button_reg" type="submit" style="font-size:15px;" value=" Зарегистрироваться "/>
             </form>
         </div>
+        <?php } ?>
         <div id="block_for_left">
             <div id="head_left_menu">TAGS</div>
             <div id="info_left_menu">PHP, LINUX, CSS, bla, bla, bla, bla, bla, bla, bla, bla, bla</div>
