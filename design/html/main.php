@@ -24,7 +24,7 @@
 </header>
 <main>
     <div id="top_menu">
-        <div id="header_top"></div>
+            <div id="header_top"></div>
     </div>
     <div id="left_menu">
         <div id="block_for_left">

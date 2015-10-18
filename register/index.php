@@ -53,4 +53,4 @@ $content = $content . "<center><h3>
 </form>
 </h3></center><br />";
 $main->timer_save();
-$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . './design/html/main.php', $title);
+$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);

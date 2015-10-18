@@ -15,4 +15,4 @@ $main = new page_init();
 $main->std_page_init();
 $content = "<br />Информация о пользователе (В разработке)<br /><br />";
 $main->timer_save();
-$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . './design/html/main.php', $title);
+$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);

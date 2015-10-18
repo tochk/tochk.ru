@@ -19,4 +19,4 @@ $content = $content . "<form action='/support/query.php' method='post'>
 <p><input name='submit' type='submit' id='submit' value=' Отправить ' /></p>
 </form></center>";
 $main->timer_save();
-$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . './design/html/main.php', $title);
+$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);

@@ -21,4 +21,4 @@ while ($index) {
 if ($main->admin == 1) $content = $content . "<h2><a href='/admin/index_create.php' style='margin: 0;'>Создать</a></h2>";
 $content = $content . "<br />";
 $main->timer_save();
-$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . './design/html/main.php', $title);
+$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);

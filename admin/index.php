@@ -21,4 +21,4 @@ $content = "<br /><center><h1>Панель управления сайтом</h1
 <a href='/admin/users.php'>Список пользователей</a> ||| 
 <a href='/admin/logs.php'>Логи</a><br />";
 $main->timer_save();
-$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . './design/html/main.php', $title);
+$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
