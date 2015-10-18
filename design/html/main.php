@@ -4,62 +4,75 @@
     <title><?php echo $title; ?> - tochk.ru</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="/design/css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="/design/images/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <!--script type="text/javascript" src="/engine/js/pjax-standalone.min.js"></script-->
-    <!--script type='text/javascript'>pjax.connect();</script-->
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<div id='topbar'>
-    <p class='topbar2'>
-        <a href='http://tochk.ru/'><img src='/design/images/toplogo.png'/></a>
-    </p>
-    <?php
-    if (!isset($_SESSION['id']))
-        echo "<form action='/login.php' method='post'>
-Логин: <input type='text' name='login' />
-Пароль:  <input type='password' name='password' />
-<input type='submit' value=' Войти ' />
-<a style='color: white;' href='/register/' data-pjax='content'>Регистрация</a> 
-</form>";
-    else {
-        echo "<form action='/login.php?logout=1' method='post'>
-Вы зашли как: $login.
-<a style='color: white;' href='/user/files.php' data-pjax='content'>Файлы</a> 
-<a style='color: white;' href='/user/gallery.php' data-pjax='content'>Скриншоты</a> ";
-        if ($admin == 1) print "<a style='color: white;' href='/admin/' data-pjax='content'>Админка</a> ";
-        echo "<input type='submit' value=' Выход ' />
-</form>";
-    }
-    ?>
-</div>
-<div id="main">
-    <div id="header">
-        <a href="/" data-pjax='content'><img src="/design/images/logo.png"/></a>
-
-        <div id="menu">
-            <ul>
-                <li><a href="/blog/" data-pjax='content'><img src="/design/images/menu/news.png"/></a></li>
-                <li><a href="/projects/" data-pjax='content'><img src="/design/images/menu/projects.png"/></a></li>
-                <li><a href="/portfolio/" data-pjax='content'><img src="/design/images/menu/services.png"/></a></li>
-                <li><a href="/info/" data-pjax='content'><img src="/design/images/menu/sandbox.png"/></a></li>
-            </ul>
+<header>
+    <div id="header_for_buttons">
+        <div id="logo_name"><h1>TOCHK.RU</h1></div>
+        <div id="buttons">
+            <div id="button">Настройки</div>
+            <div id="button">КОНТАКТЫ</div>
+            <div id="button">НАШИ РАБОТЫ</div>
+            <div id="button" style=" height: 41px; padding-top: 9px;">РАЗРАБОТКА САЙТОВ</div>
+            <div id="button">БЛОГ</div>
+            <div id="button">ГЛАВНАЯ</div>
         </div>
     </div>
-    <div id="content">
-        <?php echo $content; ?>
+</header>
+<main>
+    <div id="top_menu">
+        <div id="header_top"></div>
     </div>
-    <center>
-        <div id='footer'>
-            <strong>
-                <h5 style="margin: 0;">Обо всех найденных багах и уязвимостях вы можете сообщить через <a
-                        href="/order/" data-pjax='content' data-title='Обратная связь' style="color: white;">обратную
-                        связь</a><br/>
-                    Исходный код проекта доступен на <a href="https://github.com/madot/tochk.ru" target="_blank"
-                                                        style="color: white;">GitHub</a>.</h5>
-                tochk.ru © 2013-2014
-            </strong>
+    <div id="left_menu">
+        <div id="block_for_left">
+            <div id="head_left_menu">User_name</div>
+            <div id="info_left_menu" style="font-size:16px;">
+                * - Любимые теги <br>
+                * - Сохранненые статьи <br>
+                * - Текущие заказы <br>
+                * - Настройки <br>
+            </div>
         </div>
-    </center>
-</div>
+        <div id="block_for_left">
+            <div id="button_login_reg">SIGN IN</div>
+            <form action="/login.php" method="post">
+                <input id="field_log_reg" type="text" placeholder="Логин" name="login" size=28/>
+                <input id="field_log_reg" type="password" placeholder="Пароль" name="password" size=28/>
+                <input id="button_log" type="submit" style="font-size:15px;" value=" Войти "/>
+            </form>
+        </div>
+        <div id="block_for_left">
+            <div id="button_login_reg">SIGN UP</div>
+            <form action="/login.php" method="post">
+                <input id="field_log_reg" type="text" placeholder="Логин" name="login" size=28/>
+                <input id="field_log_reg" type="text" placeholder="E-mail" name="email" size=28/>
+                <input id="field_log_reg" type="password" placeholder="Пароль" name="password1" size=28/>
+                <input id="field_log_reg" type="password" placeholder="Повторите пароль" name="password2" size=28/>
+                <input id="button_reg" type="submit" style="font-size:15px;" value=" Зарегистрироваться "/>
+            </form>
+        </div>
+        <div id="block_for_left">
+            <div id="head_left_menu">TAGS</div>
+            <div id="info_left_menu">PHP, LINUX, CSS, bla, bla, bla, bla, bla, bla, bla, bla, bla</div>
+        </div>
+        <div id="block_for_left">
+            <div id="head_left_menu">НЕКИЙ БЛОК</div>
+            <div id="info_left_menu" style="font-size:16px;">Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст
+                Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст
+                Текст Текст Текст Текст Текст Текст
+            </div>
+        </div>
+    </div>
+    <div id="right_menu">
+        <content>
+            <?php echo $content; ?>
+        </content>
+    </div>
+</main>
+<footer>
+    (c) lenok
+</footer>
 </body>
 </html>
