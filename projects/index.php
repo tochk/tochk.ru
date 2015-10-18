@@ -9,16 +9,21 @@ function __autoload($class_name)
 
 $main = new page_init();
 $main->std_page_init();
-$content = "<br /><br />";
-$query = "SELECT * FROM `indexpr` WHERE `type`='PR' ORDER BY pr DESC";
+$content = "";
+$query = "SELECT * FROM `projects` ORDER BY `id` DESC";
 $result = mysql_query($query) or die(mysql_error());
 $index = mysql_fetch_array($result, MYSQL_ASSOC);
 while ($index) {
-    if ($index['img_url'] == '') $index['img_url'] = "/design/images/index/logo.png";
-    $content = $content . "<br /><div id='block_content'><a href='{$index['url']}' target='_blank'><img src='{$index['img_url']}' target='_blank' align='left' vspace='5' hspace='5'><h3>{$index['name']}</h3></a>{$index['comment']}</div>\n";
+    if ($index['img_url'] == '') $index['img_url'] = "/design/images/logo.png";
+    $content .= "<div id='block_new_sait'> <div id='block_in_block_sait'><div id='block_in_block_sait_2'><div id='block_sait_head'>{$index['name']}</div><div id='block_sait_scrin_info'>
+<div class='block_sait_scrin_1'><div class='block_sait_scrin_2'   style='background-image: url(\"{$index['img_url']}\")'></div>
+<div class='block_sait_scrin_3'>{$index['comment']}</div></div></div></div></div><div id='block_sait_info'><div id='block_sait_info_2'>
+<div id='sait_date'>{$index['time']}</div><div id='sait_data_about_block'><div style='width: 100px' id='sait_author'>Author<br><text_green>{$index['author']}</text_green></div>
+<div style='width: 100px' id='sait_cat'>Category<br><text_green>{$index['category']}</text_green></div></div><div id='sait_right_footer'>read more</div>
+</div></div></div>";
     $index = mysql_fetch_array($result, MYSQL_ASSOC);
 }
-if ($main->admin == 1) $content = $content . "<h2><a href='/admin/index_create.php' style='margin: 0;'>Создать</a></h2>";
-$content = $content . "<br />";
+//if ($main->admin == 1) $content = $content . "<h2><a href='/admin/index_create.php' style='margin: 0;'>Создать</a></h2>";
+//$content = $content . "<br />"; todo:создание проектов
 $main->timer_save();
 $main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
