@@ -6,7 +6,9 @@ function __autoload($class_name)
 {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/engine/classes/' . $class_name . '.php';
 }
-$content = "<br /><br /><br />";
+$main = new page_init();
+$main->std_page_init();
+$content = "";
 //if ($main->admin == 1) $content = $content . "<a href=/news/new.php>Создать новость</a><br />"; todo:создание поста
 $query = "SELECT * FROM `posts` ORDER BY `id` DESC";
 $result = mysql_query($query) or die(mysql_error());
