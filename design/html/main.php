@@ -12,12 +12,13 @@
     <div id="header_for_buttons">
         <div id="logo_name"><h1>TOCHK.RU</h1></div>
         <div id="buttons">
-            <div id="button">Настройки</div>
-            <div id="button">КОНТАКТЫ</div>
-            <div id="button">НАШИ РАБОТЫ</div>
-            <div id="button" style=" height: 41px; padding-top: 9px;">РАЗРАБОТКА САЙТОВ</div>
-            <div id="button">БЛОГ</div>
-            <div id="button">ГЛАВНАЯ</div>
+            <?php if($main->admin == 1) { ?>
+            <div id="button" onclick="window.location.href='/admin/'">АДМИНКА</div> <?php } ?>
+            <div id="button" onclick="window.location.href='/projects/'">ПРОЕКТЫ</div>
+            <div id="button" onclick="window.location.href='/portfolio/'">НАШИ РАБОТЫ</div>
+            <div id="button" onclick="window.location.href='/info/'" style=" height: 41px; padding-top: 8px;">РАЗРАБОТКА САЙТОВ</div>
+            <div id="button" onclick="window.location.href='/blog/'">БЛОГ</div>
+            <div id="button" onclick="window.location.href='/'">ГЛАВНАЯ</div>
         </div>
     </div>
 </header>

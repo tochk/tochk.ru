@@ -134,7 +134,7 @@ class page_init
         $ms_query = $this->timer["ms_query"] - $this->timer["ms_conn"];
         $history = $this->timer["history"] - $this->timer["ms_query"];
         $end = $this->timer["end"] - $this->timer["history"];
-        mysql_select_db("{$config['table_prefix']}main") or die(mysql_error());
+        mysql_select_db("{$config['mysql_db']}") or die(mysql_error());
         $query = "INSERT INTO `{$config['table_prefix']}stat_pages` SET `time`='$this->time', `ip`='$this->ip', `page`='$this->url', `ms_conn`='$ms_conn', `ms_query`='$ms_query', `history`='$history', `end`=$end, `reff`='$this->reffer'";
         $sql = mysql_query($query) or die(mysql_error());
     }
