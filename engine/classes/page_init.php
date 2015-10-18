@@ -156,7 +156,7 @@ class page_init
 
     public function pjax_init($content, $ds_path, $title)
     {
-        global $config;
+        global $config, $main;
         if ($config['pjax'] == 1) {
             if (isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] == 'true') {
                 echo $content;
