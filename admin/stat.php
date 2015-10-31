@@ -18,6 +18,6 @@ $content = "<br /><div style='text-align: center;'><h1>Статистика по
 <h3><a href='/admin/'>Панель управления сайтом</a> |||
 Статистика посещений |||
 <a href='/admin/users.php'>Список пользователей</a> |||
-<a href='/admin/logs.php'>Логи</a><br /></div>";
+<a href='/admin/logs.php'>Логи</a></h3><br /></div>";
 $main->timer_save();
 $main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);

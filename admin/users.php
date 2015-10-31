@@ -15,10 +15,10 @@ if ($main->admin == 0) {
 }
 $content = "<br /><div style='text-align: center;'><h1>Список пользователей</h1>
 <br/>
-<a href='/admin/'>Панель управления сайтом</a> |||
+<h3><a href='/admin/'>Панель управления сайтом</a> |||
 <a href='/admin/stat.php'>Статистика посещений</a> |||
 Список пользователей |||
-<a href='/admin/logs.php'>Логи</a><br /></div>";
+<a href='/admin/logs.php'>Логи</a></h3><br /></div>";
 $result = mysql_query("SELECT * FROM users ORDER BY id DESC");
 $myrow = mysql_fetch_array($result, MYSQL_ASSOC);
 for ($i = 0; $i < mysql_num_rows($result); $i++) {
