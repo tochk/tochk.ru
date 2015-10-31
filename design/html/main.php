@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo $title; ?> - tochk.ru</title>
+    <title><?php echo $title; ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="/design/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>

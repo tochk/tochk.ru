@@ -13,7 +13,7 @@ if ($main->admin == 0) {
     header('Location: /');
     exit();
 }
-$content = "<br /><div style='text-align: center;'><h1>Логи пользователей</h1>
+$content = "<br /><div style='text-align: center;'><h1>Логи пользователей</h1><br />
 <h3><a href='/admin/'>Панель управления сайтом</a> ||| 
 <a href='/admin/stat.php'>Статистика посещений</a> ||| 
 <a href='/admin/users.php'>Список пользователей</a> ||| 
