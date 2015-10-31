@@ -1,12 +1,6 @@
 <?php
-session_start();
-include('../engine/mysql_connect.php');
-$query = "SELECT * FROM `admin` WHERE `id`='1' LIMIT 1";
-$sql = mysql_query($query) or die(mysql_error());
-$row = mysql_fetch_assoc($sql);
-$closed = $row['closed'];
-$update = $row['update'];
-if ($closed == 0) {
+require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+if ($config['closed'] == 0) {
     header('Location: /');
     exit();
 }
