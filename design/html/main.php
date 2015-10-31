@@ -4,6 +4,7 @@
     <title><?php echo $title; ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="/design/css/style.css" rel="stylesheet" type="text/css"/>
+    <script src="/engine/js/login_register.js" async="async"></script>
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 </head>
@@ -44,6 +45,7 @@
                 <input id="field_log_reg" type="password" placeholder="Пароль" name="password" size=28/>
                 <input id="button_log" type="submit" style="font-size:15px;" value=" Войти "/>
             </form>
+            <div id="new_text"><a href="#">Забыл пароль</a> | <a onclick="loginRegister();">Регистрация</a></div>
         </div>
         <div id="block_for_left" class="register">
             <div id="button_login_reg">SIGN UP</div>
@@ -54,6 +56,7 @@
                 <input id="field_log_reg" type="password" placeholder="Повторите пароль" name="password2" size=28/>
                 <input id="button_reg" type="submit" style="font-size:15px;" value=" Зарегистрироваться "/>
             </form>
+            <div id="new_text"><a href="#" >Забыл пароль</a> | <a onclick="loginRegister();">Вход</a></div>
         </div>
         <?php } ?>
         <div id="block_for_left">
