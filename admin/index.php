@@ -13,12 +13,11 @@ if ($main->admin == 0) {
     header('Location: /');
     exit();
 }
-include('../engine/history.php');
-$content = "<br /><center><h1>Панель управления сайтом</h1></center>
-<h3><center>
+$content = "<br /><div style='text-align: center;'><h1>Панель управления сайтом</h1>
+<br/>
 Панель управления сайтом ||| 
 <a href='/admin/stat.php'>Статистика посещений</a> ||| 
 <a href='/admin/users.php'>Список пользователей</a> ||| 
-<a href='/admin/logs.php'>Логи</a><br />";
+<a href='/admin/logs.php'>Логи</a><br /></div>";
 $main->timer_save();
 $main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);

@@ -22,7 +22,6 @@ for ($i = 0; $i < $a; $i++) {
 <div id='data_com'> Comments<br><text_green>{$posts['comments']}</text_green></div></div><div id='block_info_footer' style='font-size: 20px;'> read more</div></div></div></div>";
 //<div id='block_save' style='font-size: 20px;'> Save + </div></div>";
     //if ($admin == 1) $content = $content . " <a href=/news/edit.php?id={$news['id']}>Редактировать</a>";
-    //$content = $content . "</h3><br />{$news['content']}<br /></div><br />";
     $posts = mysql_fetch_array($result, MYSQL_ASSOC);
 }
 $query = "SELECT * FROM `projects` ORDER BY `id` DESC";

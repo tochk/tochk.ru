@@ -60,16 +60,14 @@ $sql = mysql_query($query) or die(mysql_error());
 $query = "SELECT `id` FROM `users` WHERE `login`='$login' LIMIT 1";
 $sql = mysql_query($query) or die(mysql_error());
 $row = mysql_fetch_assoc($sql);
-$id = $row['id'];
-/*mysql_select_db("logs") or die (mysql_error());
-$query = "CREATE TABLE `logs_$id` (
+$query = "CREATE TABLE `logs`.`{$row['id']}` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `action` varchar(32) NOT NULL DEFAULT '0',
   `result` int(11) NOT NULL DEFAULT '0',
   `time` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;";
-$sql = mysql_query($query) or die(mysql_error());*/
+$sql = mysql_query($query) or die(mysql_error());
 $_SESSION['reg_ok'] = 1;
 $main->timer_save();
 header('Location: /');
