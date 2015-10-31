@@ -11,7 +11,7 @@
 <body>
 <header>
     <div id="header_for_buttons">
-        <div id="logo_name"><h1>TOCHK.RU</h1></div>
+        <div id="logo_name" onclick="window.location.href='/'"><h1>TOCHK.RU</h1></div>
         <div id="buttons">
             <?php if($main->admin == 1) { ?>
             <div id="button" onclick="window.location.href='/admin/'">АДМИНКА</div> <?php } ?>

@@ -15,7 +15,7 @@ $result = mysql_query($query) or die(mysql_error());
 $index = mysql_fetch_array($result, MYSQL_ASSOC);
 while ($index) {
     if ($index['img_url'] == '') $index['img_url'] = "/design/images/logo.png";
-    $content .= "<div id='block_new_sait'> <div id='block_in_block_sait'><div id='block_in_block_sait_2'><div id='block_sait_head'>{$index['name']}</div><div id='block_sait_scrin_info'>
+    $content .= "<div id='block_new_sait' onclick=\"window.location.href='{$index['url']}'\"> <div id='block_in_block_sait'><div id='block_in_block_sait_2'><div id='block_sait_head'>{$index['name']}</div><div id='block_sait_scrin_info'>
 <div class='block_sait_scrin_1'><div class='block_sait_scrin_2'   style='background-image: url(\"{$index['img_url']}\")'></div>
 <div class='block_sait_scrin_3'>{$index['comment']}</div></div></div></div></div><div id='block_sait_info'><div id='block_sait_info_2'>
 <div id='sait_date' style='width: 100px'>{$index['time']}</div><div id='sait_data_about_block' style='width: 180px'><div style='width: 80px' id='sait_author'>Author<br><text_green>{$index['author']}</text_green></div>
