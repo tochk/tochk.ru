@@ -1,6 +1,6 @@
 <?php
 session_start();
-$title = "Главная";
+$title = "Разработка сайтов";
 require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 function __autoload($class_name)
 {

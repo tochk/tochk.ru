@@ -1,6 +1,5 @@
 <?php
 session_start();
-$title = "Панель управления сайтом";
 require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 function __autoload($class_name)
 {
