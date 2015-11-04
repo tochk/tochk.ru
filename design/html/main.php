@@ -30,7 +30,7 @@
     <div id="left_menu">
         <?php if (isset($_SESSION['id'])) { ?>
         <div id="block_for_left">
-            <div id="head_left_menu">User_name</div>
+            <div id="head_left_menu"><?php echo $main->login; ?></div>
             <div id="info_left_menu" style="font-size:16px;">
                 * - Любимые теги <br>
                 * - Сохранненые статьи <br>
@@ -64,13 +64,6 @@
         <div id="block_for_left">
             <div id="head_left_menu">TAGS</div>
             <div id="info_left_menu">PHP, LINUX, CSS, bla, bla, bla, bla, bla, bla, bla, bla, bla</div>
-        </div>
-        <div id="block_for_left">
-            <div id="head_left_menu">НЕКИЙ БЛОК</div>
-            <div id="info_left_menu" style="font-size:16px;">Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст
-                Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст
-                Текст Текст Текст Текст Текст Текст
-            </div>
         </div>
     </div>
     <div id="right_menu">
