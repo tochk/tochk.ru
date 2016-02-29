@@ -26,13 +26,7 @@ class page_init
         $this->timer["start"] = $temp[1] + $temp[0];
     }
 
-    public function installer_mysql_conn()
-    {
-        global $config;
-        mysql_connect($config['mysql_host'], $config['mysql_login'], $config['mysql_password']) or die(mysql_error());
-    }
-
-    public function mysql_conn()
+    public function mysql_conn() //+
     {
         global $config;
         mysql_connect($config['mysql_host'], $config['mysql_login'], $config['mysql_password']) or die(mysql_error());
