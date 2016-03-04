@@ -10,6 +10,7 @@ function __autoload($class_name)
 $page = new Page();
 $mysql = new Mysql();
 $mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPassword(), $page->getMysqlDb(), $page->debugLevel);
+$user = new User();
 $logs = new Logs();
 $data = new Data();
 $content = "";

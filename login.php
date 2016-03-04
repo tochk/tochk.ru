@@ -1,43 +1,58 @@
 <?php
 session_start();
-require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/engine/helpers.php');
+
 function __autoload($class_name)
 {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/engine/classes/' . $class_name . '.php';
 }
 
-$main = new page_init();
-$main->std_page_init();
+$page = new Page();
+$mysql = new Mysql();
+$mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPassword(), $page->getMysqlDb(), $page->debugLevel);
+$user = new User();
+$logs = new Logs();
+$data = new Data();
+
 if ($_GET['logout'] == 1) {
     unset($_SESSION['id']);
     unset($_SESSION['login']);
-    $main->timer_save();
     header("Location: /");
     exit();
 }
-if (!empty($_POST)) {
-    $login = mysql_real_escape_string($_POST['login']);
-    $password = mysql_real_escape_string($_POST['password']);
-    $query = "SELECT `salt` FROM `users` WHERE `login`='$login' LIMIT 1";
-    $sql = mysql_query($query) or die(mysql_error());
-    if (mysql_num_rows($sql) == 1) {
-        $row = mysql_fetch_assoc($sql);
-        $password = hash('sha256', hash('sha256', $password) . $row['salt']);
-        $query = "SELECT `id` FROM `users` WHERE `login`='$login' AND `password`='$password' LIMIT 1";
-        $sql = mysql_query($query) or die(mysql_error());
-        $row = mysql_fetch_assoc($sql);
-        if (mysql_num_rows($sql) == 0) {
-            $_SESSION['log_err'] = 1;
-            header('Location: /');
-            exit();
-        }
-        $_SESSION['id'] = $row['id'];
-        $_SESSION['login'] = $login;
-    } else {
-        $_SESSION['log_err'] = 1;
+
+$login = isset($_POST["login"]) ? $_POST["login"] : null;
+$password = isset($_POST["password"]) ? $_POST["password"] : null;
+
+if ($login && $password) {
+    $query = "SELECT `salt` FROM `users` WHERE `login`=?";
+    $stmt = $mysql->connection->prepare($query);
+    $stmt->bind_param("s", $login);
+    $stmt->execute();
+    if ($stmt->num_rows != 1) {
+        echo "cant't find user or find more than one user";
+        exit;
     }
+    $salt = '';
+    $stmt->bind_result($salt);
+    $stmt->fetch();
+    $hashed_password = hash('sha256', hash('sha256', $password) . $salt);
+    $query = "SELECT `id` FROM `users` WHERE `login`=? AND `password`=?";
+    $stmt = $mysql->connection->prepare($query);
+    $stmt->bind_param("ss", $login, $hashed_password);
+    $stmt->execute();
+    if ($stmt->num_rows != 1) {
+        echo "wrong password";
+        exit;
+    }
+    $id = '';
+    $stmt->bind_result($id);
+    $stmt->fetch();
+    $_SESSION['id'] = $id;
+    $_SESSION['login'] = $login;
 } else {
-    $_SESSION['log_err'] = 1;
+    echo "login or/and password are empty";
+    exit;
 }
-$main->timer_save();
-header("Location: {$_SERVER['HTTP_REFERER']}");
+
+isset($_SERVER['HTTP_REFERER']) ? header("Location: {$_SERVER['HTTP_REFERER']}") : header("Location: /");
