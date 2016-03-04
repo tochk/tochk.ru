@@ -15,16 +15,16 @@ $logs = new Logs();
 $data = new Data();
 $content = "";
 $query = "SELECT * FROM `projects` ORDER BY `id` DESC LIMIT 2";
-if ($result = $mysql->connection->query()) {
+if ($result = $mysql->connection->query($query)) {
     while ($row = $result->fetch_assoc()) {
         $content .= $data->printProject($row);
     }
 }
 
 $query = "SELECT * FROM `posts` ORDER BY `id` DESC LIMIT 2";
-if ($result = $mysql->connection->query()) {
+if ($result = $mysql->connection->query($query)) {
     while ($row = $result->fetch_assoc()) {
-        $content .= $data->printPost($row, $mysql->connection);
+        $content .= $data->printPost($mysql->connection, $row);
     }
 }
 
