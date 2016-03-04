@@ -29,6 +29,7 @@ if ($login && $password) {
     $stmt = $mysql->connection->prepare($query);
     $stmt->bind_param("s", $login);
     $stmt->execute();
+    $stmt->store_result();
     if ($stmt->num_rows != 1) {
         echo "cant't find user or find more than one user";
         exit;
@@ -36,11 +37,13 @@ if ($login && $password) {
     $salt = '';
     $stmt->bind_result($salt);
     $stmt->fetch();
+    $stmt->close();
     $hashed_password = hash('sha256', hash('sha256', $password) . $salt);
     $query = "SELECT `id` FROM `users` WHERE `login`=? AND `password`=?";
     $stmt = $mysql->connection->prepare($query);
     $stmt->bind_param("ss", $login, $hashed_password);
     $stmt->execute();
+    $stmt->store_result();
     if ($stmt->num_rows != 1) {
         echo "wrong password";
         exit;
