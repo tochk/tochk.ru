@@ -43,7 +43,6 @@ class Data
         "<div id='block_info_footer' style='font-size: 20px;'> read more</div>" .
         "</div></div>" .
         "<div id='block_save' style='font-size: 20px;'> Save + </div></div>";
-        //if ($admin == 1) $content = $content . " <a href=/news/edit.php?id={$news['id']}>Редактировать</a>";
     }
 
     public function getPostTags($connection, $postId)

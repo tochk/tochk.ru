@@ -64,6 +64,7 @@ class Page
 
     public function printPage($content, $pathToDesign, $title)
     {
+        global $user, $mysql, $page, $data, $logs;
         require_once($pathToDesign);
     }
 }
