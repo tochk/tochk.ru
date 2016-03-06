@@ -13,12 +13,12 @@
     <div id="header_for_buttons">
         <div id="logo_name" onclick="window.location.href='/'"><h1>TOCHK.RU</h1></div>
         <div id="buttons">
-            <?php if($main->admin == 1) { ?>
+            <?php if($user->isAdmin == 1) { ?>
             <div id="button" onclick="window.location.href='/admin/'">АДМИНКА</div> <?php } ?>
             <div id="button" onclick="window.location.href='/projects/'">ПРОЕКТЫ</div>
             <div id="button" onclick="window.location.href='/portfolio/'">НАШИ РАБОТЫ</div>
             <div id="button" onclick="window.location.href='/info/'" style=" height: 41px; padding-top: 9px;">РАЗРАБОТКА САЙТОВ</div>
-            <div id="button" onclick="window.location.href='/blog/'">БЛОГ</div>
+            <div id="button" onclick="window.location.href='/blog/'">СТАТЬИ</div>
             <div id="button" onclick="window.location.href='/'">ГЛАВНАЯ</div>
         </div>
     </div>
@@ -30,7 +30,7 @@
     <div id="left_menu">
         <?php if (isset($_SESSION['id'])) { ?>
         <div id="block_for_left">
-            <div id="head_left_menu"><?php echo $main->login; ?></div>
+            <div id="head_left_menu"><?php echo $user->login; ?></div>
             <div id="info_left_menu" style="font-size:16px;">
                 * - Любимые теги <br>
                 * - Сохранненые статьи <br>
@@ -63,7 +63,7 @@
         <?php } ?>
         <div id="block_for_left">
             <div id="head_left_menu">TAGS</div>
-            <div id="info_left_menu"><?php
+            <div id="info_left_menu"><?php/*
                 $query = "SELECT * FROM `tags_name`";
                 $tags_result = mysql_query($query) or die(mysql_error());
                 $tags_num = mysql_num_rows($tags_result);
@@ -72,7 +72,7 @@
                     echo $tag['name'];
                     if ($tags_num != 0)
                         echo ", ";
-                }
+                }*/
                 ?></div>
         </div>
     </div>

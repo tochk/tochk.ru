@@ -7,6 +7,7 @@ class User
     public $password;
     public $salt;
     public $email;
+    public $isAdmin;
 
     public function __construct()
     {
