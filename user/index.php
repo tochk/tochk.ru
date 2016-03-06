@@ -1,18 +1,24 @@
 <?php
 session_start();
-$title = "Профиль пользователя";
-require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+$title = "Пользователь";
+require($_SERVER['DOCUMENT_ROOT'] . '/engine/helpers.php');
 function __autoload($class_name)
 {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/engine/classes/' . $class_name . '.php';
 }
 
-if (isset($_SESSION['id']) == 0) {
-    header('Location: /error/denied.php');
-    exit();
+
+$page = new Page();
+$mysql = new Mysql();
+$mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPassword(), $page->getMysqlDb(), $page->debugLevel);
+$user = new User($mysql);
+if (!$user->isLoggedIn())
+{
+    header("Location: /");
+    exit;
 }
-$main = new page_init();
-$main->std_page_init();
-$content = "<br />Информация о пользователе (В разработке)<br /><br />";
-$main->timer_save();
-$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
+$title .= " " . $user->login;
+$logs = new Logs();
+$data = new Data();
+$content = "Информация о пользователе (В разработке)";
+$page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);

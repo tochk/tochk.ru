@@ -1,14 +1,17 @@
 <?php
 session_start();
 $title = "Разработка сайтов";
-require($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/engine/helpers.php');
 function __autoload($class_name)
 {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/engine/classes/' . $class_name . '.php';
 }
 
-$main = new page_init();
-$main->std_page_init();
-$content = "Какая - то информация";
-$main->timer_save();
-$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
+$page = new Page();
+$mysql = new Mysql();
+$mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPassword(), $page->getMysqlDb(), $page->debugLevel);
+$user = new User($mysql);
+$logs = new Logs();
+$data = new Data();
+$content = "Какая-то информация";
+$page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
