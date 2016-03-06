@@ -23,6 +23,7 @@ $password = isset($_POST["password"]) ? $_POST["password"] : null;
 $password2 = isset($_POST["password2"]) ? $_POST["password2"] : null;
 $email = isset($_POST["email"]) ? $_POST["email"] : null;
 
+$flag = 0;
 if ($login && $password && $password2 && $email) {
 
     if (strlen($login) < 5) {
@@ -35,7 +36,7 @@ if ($login && $password && $password2 && $email) {
         $flag = 1;
     }
 
-    $query = "SELECT `id` FROM `users` WHERE `email`='$email' LIMIT 1";
+    $query = "SELECT `id` FROM `users` WHERE `email`=?";
     $stmt = $mysql->connection->prepare($query);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -46,7 +47,7 @@ if ($login && $password && $password2 && $email) {
     }
     $stmt->close();
 
-    $query = "SELECT `id` FROM `users` WHERE `login`='$login' LIMIT 1";
+    $query = "SELECT `id` FROM `users` WHERE `login`=?";
     $stmt = $mysql->connection->prepare($query);
     $stmt->bind_param("s", $login);
     $stmt->execute();
@@ -67,8 +68,9 @@ if ($login && $password && $password2 && $email) {
         exit;
     }
 
+    $salt = generateSalt();
     $hashed_password = hash('sha256', hash('sha256', $password) . $salt);
-    $query = "INSERT INTO `users` SET `login`=?, `email`=?, `password`=?, `salt`=?";
+    $query = "INSERT INTO `users` (`login`, `email`, `password`, `salt`) VALUES (?, ?, ?, ?)";
     $stmt = $mysql->connection->prepare($query);
     $stmt->bind_param("ssss", $login, $email, $hashed_password, $salt);
     $stmt->execute();

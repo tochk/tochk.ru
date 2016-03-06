@@ -20,5 +20,5 @@ if ($result = $mysql->connection->query($query)) {
         $content .= $data->printPost($mysql->connection, $row);
     }
 }
-$main->timer_save();
-$main->pjax_init($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
+
+$page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);

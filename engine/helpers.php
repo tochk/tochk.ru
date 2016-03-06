@@ -14,7 +14,7 @@ function getPostTags($mysql)
 {
     $tags = '';
     $query = "SELECT `name` FROM `tags_name`";
-    $result = $mysql->query($query);
+    $result = $mysql->connection->query($query);
     while ($row = $result->fetch_assoc()) {
         $tags .= "{$row['name']}, ";
     }

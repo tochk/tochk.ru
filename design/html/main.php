@@ -50,10 +50,10 @@
         </div>
         <div id="block_for_left" class="register" style="display: none">
             <div id="button_login_reg">SIGN UP</div>
-            <form action="/login.php" method="post">
+            <form action="/register/query.php" method="post">
                 <input id="field_log_reg" type="text" placeholder="Логин" name="login" size=28/>
                 <input id="field_log_reg" type="text" placeholder="E-mail" name="email" size=28/>
-                <input id="field_log_reg" type="password" placeholder="Пароль" name="password1" size=28/>
+                <input id="field_log_reg" type="password" placeholder="Пароль" name="password" size=28/>
                 <input id="field_log_reg" type="password" placeholder="Повторите пароль" name="password2" size=28/>
                 <div id="new_text"><a href="javascript:void(0)" >Забыл пароль</a> | <a href="javascript:void(0)" onclick="loginRegister();">Вход</a></div>
                 <input id="button_reg" type="submit" style="font-size:15px;" value=" Зарегистрироваться "/>
@@ -73,7 +73,8 @@
     </div>
 </main>
 <footer>
-    (c) lenok
+    powered on tochk.ru<br>
+    design by lenokh
 </footer>
 </body>
 </html>
