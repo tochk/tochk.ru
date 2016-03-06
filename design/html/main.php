@@ -63,17 +63,7 @@
         <?php } ?>
         <div id="block_for_left">
             <div id="head_left_menu">TAGS</div>
-            <div id="info_left_menu"><?php/*
-                $query = "SELECT * FROM `tags_name`";
-                $tags_result = mysql_query($query) or die(mysql_error());
-                $tags_num = mysql_num_rows($tags_result);
-                while ($tags_num--) {
-                    $tag = mysql_fetch_array($tags_result, MYSQL_ASSOC);
-                    echo $tag['name'];
-                    if ($tags_num != 0)
-                        echo ", ";
-                }*/
-                ?></div>
+            <div id="info_left_menu"><?php echo getPostTags($mysql); ?></div>
         </div>
     </div>
     <div id="right_menu">
