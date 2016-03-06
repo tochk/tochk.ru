@@ -9,9 +9,24 @@ class User
     public $email;
     public $isAdmin;
 
-    public function __construct()
+    public function __construct($mysql)
     {
-
+        if ($this->isLoggedIn())
+        {
+            $this->id = $_SESSION['id'];
+            $query = "SELECT `login`, `password`, `salt`, `email`, `admin` FROM `users` WHERE `id`=?";
+            $stmt = $mysql->connection->prepare($query);
+            $stmt->bind_param("s", $this->id);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows != 1) {
+                header("Location: /login.php?logout=1");
+                exit;
+            }
+            $stmt->bind_result($this->login, $this->password, $this->salt , $this->email, $this->isAdmin);
+            $stmt->fetch();
+            $stmt->close();
+        }
     }
 
     public function getSaltFromDb($mysql, $login)
@@ -47,5 +62,13 @@ class User
         $stmt->fetch();
         $stmt->close();
         return $id;
+    }
+
+    public function isLoggedIn()
+    {
+        if (!isset($_SESSION['id'])) {
+            return false;
+        }
+        return true;
     }
 }
