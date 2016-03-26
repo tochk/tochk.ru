@@ -11,6 +11,7 @@ class Logs
     private $userId;
     private $time;
     private $action;
+    private $url;
 
     public function __construct()
     {
@@ -26,6 +27,7 @@ class Logs
         }
         $this->time = time();
         $this->userId = $_SESSION['id'];
+        $this->url = $_SERVER['REQUEST_URI'];
     }
 
     public function setCreateClasses()
@@ -61,9 +63,13 @@ class Logs
             $this->action = 'unknown';
         if (!isset($this->info))
             $this->info = 'empty';
-        $query = "INSERT INTO `logs` (`createClasses`, `end`, `info`, `referer`, `clientIp`, `userId`, `time`, `action`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        if (!isset($this->url))
+            $this->url = 'unknown';
+        $query = "INSERT INTO `logs` (`createClasses`, `end`, `info`, `url`, `referer`, `clientIp`, `userId`, `time`, `action`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $mysql->connection->prepare($query);
-        $stmt->bind_param("ssssssss", $this->createClasses - $this->start, $this->end - $this->createClasses, $this->info, $this->referer, $this->clientIp, $this->userId, $this->time, $this->action);
+        $temp = $this->createClasses - $this->start;
+        $temp2 = $this->end - $this->createClasses;
+        $stmt->bind_param("sssssssss", $temp, $temp2, $this->info, $this->url, $this->referer, $this->clientIp, $this->userId, $this->time, $this->action);
         $stmt->execute();
         $stmt->close();
     }
