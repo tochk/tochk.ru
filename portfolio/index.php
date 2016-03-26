@@ -1,5 +1,6 @@
 <?php
 session_start();
+$logs = new Logs();
 $title = "Портфолио";
 require($_SERVER['DOCUMENT_ROOT'] . '/engine/helpers.php');
 function __autoload($class_name)
@@ -11,8 +12,8 @@ $page = new Page();
 $mysql = new Mysql();
 $mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPassword(), $page->getMysqlDb(), $page->debugLevel);
 $user = new User($mysql);
-$logs = new Logs();
 $data = new Data();
+$logs->setCreateClasses();
 $content = "";
 $query = "SELECT * FROM `portfolio` ORDER BY `id` DESC";
 if ($result = $mysql->connection->query($query)) {
@@ -22,3 +23,5 @@ if ($result = $mysql->connection->query($query)) {
 }
 
 $page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
+$logs->setEnd();
+$logs->writeToDb($mysql);

@@ -1,5 +1,6 @@
 <?php
 session_start();
+$logs = new Logs();
 $title = "Пользователь";
 require($_SERVER['DOCUMENT_ROOT'] . '/engine/helpers.php');
 function __autoload($class_name)
@@ -18,7 +19,9 @@ if (!$user->isLoggedIn())
     exit;
 }
 $title .= " " . $user->login;
-$logs = new Logs();
 $data = new Data();
+$logs->setCreateClasses();
 $content = "Информация о пользователе (В разработке)";
 $page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
+$logs->setEnd();
+$logs->writeToDb($mysql);

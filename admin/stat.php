@@ -1,5 +1,6 @@
 <?php
 session_start();
+$logs = new Logs();
 $title = "Статистика посещений";
 require($_SERVER['DOCUMENT_ROOT'] . '/engine/helpers.php');
 function __autoload($class_name)
@@ -15,8 +16,8 @@ if ($user->isAdmin != 1) {
     header('Location: /');
     exit;
 }
-$logs = new Logs();
 $data = new Data();
+$logs->setCreateClasses();
 $content = "<br /><div style='text-align: center;'><h1>Статистика посещений</h1>
 <br/>
 <h3><a href='/admin/'>Панель управления сайтом</a> |||
@@ -24,3 +25,5 @@ $content = "<br /><div style='text-align: center;'><h1>Статистика по
 <a href='/admin/users.php'>Список пользователей</a> |||
 <a href='/admin/logs.php'>Логи</a></h3><br /></div>";
 $page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
+$logs->setEnd();
+$logs->writeToDb($mysql);
