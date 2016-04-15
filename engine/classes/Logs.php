@@ -47,6 +47,11 @@ class Logs
         $this->info = $info;
     }
 
+    public function getInfo()
+    {
+        return $this->info;
+    }
+
     public function setAction($action)
     {
         $this->action = $action;
