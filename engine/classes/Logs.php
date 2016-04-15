@@ -27,7 +27,8 @@ class Logs
             $this->clientIp = $_SERVER['REMOTE_ADDR'];
         }
         $this->time = time();
-        $this->userId = $_SESSION['id'];
+        if (isset($_SESSION['id']))
+            $this->userId = $_SESSION['id'];
         $this->url = $_SERVER['REQUEST_URI'];
     }
 
