@@ -14,12 +14,43 @@ $mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPa
 $user = new User($mysql);
 $data = new Data();
 $logs->setCreateClasses();
-$content = "<div id='create_new_post_form'>
-<form action='/blog/edit.php' method='post'>
-<input id = 'name_news' type='text' placeholder='Заголовок' name='theme'><br>
-<textarea id= 'text_news' name='text2' placeholder='Краткий текст новости'> </textarea><br>
-<textarea id= 'text_news' name='text' placeholder='Текст новости'> </textarea><br>
-<input id='button_news' type='submit' value='Добавить'></form></div>";
+$content = '';
+if (isset($_POST['theme']))
+{
+    $query = "UPDATE `posts` SET `theme` = ? , `short_text` = ?  WHERE `id`=?";
+    $stmt = $mysql->connection->prepare($query);
+    $stmt->bind_param("ssd", $_POST['theme'], $_POST['text2'], $_GET['id']);
+    $stmt->execute();
+    $stmt->close();
+    header("Location: /blog/show.php?id={$_GET['id']}");
+    exit();
+} else {
+    if (isset($_GET['id'])) {
+        $query = "SELECT `theme`, `short_text` FROM `posts` WHERE `id`=?";
+        $stmt = $mysql->connection->prepare($query);
+        $stmt->bind_param("d", $_GET['id']);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows != 1) {
+            $content .= 'Запись не найдена';
+            $stmt->close();
+        } else {
+            $row['theme'] = $row['short_text'] = '';
+            $stmt->bind_result($row['theme'], $row['short_text']);
+            $stmt->fetch();
+            $title = $row['theme'];
+            $content .= "<div id='create_new_post_form'>" .
+                "<form action='/blog/edit.php?id={$_GET['id']}' method='post'>" .
+                "<input id = 'name_news' type='text' placeholder='Заголовок' name='theme' value='{$row['theme']}'><br>" .
+                "<textarea id= 'text_news' name='text2' placeholder='Текст новости'>{$row['short_text']}</textarea><br>" .
+                "<input id='button_news' type='submit' value='Добавить'></form></div>";
+            $stmt->close();
+        }
+    } else {
+        $content .= 'Запись не найдена';
+    }
+}
+
 $page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
 $logs->setEnd();
 $logs->writeToDb($mysql);

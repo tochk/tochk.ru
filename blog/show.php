@@ -21,12 +21,17 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("d", $_GET['id']);
     $stmt->execute();
     $stmt->store_result();
-    $row['id'] = $row['time'] = $row['theme'] = $row['short_text'] = $row['author'] = $row['comments'] =  '';
-    $stmt->bind_result($row['id'], $row['time'], $row['theme'], $row['short_text'], $row['author'], $row['comments']);
-    $stmt->fetch();
-    $title = $row['theme'];
-    $content .= $data->printPost($mysql->connection, $row);
-    $stmt->close();
+    if ($stmt->num_rows != 1) {
+        $content .= 'Запись не найдена';
+        $stmt->close();
+    } else {
+        $row['id'] = $row['time'] = $row['theme'] = $row['short_text'] = $row['author'] = $row['comments'] = '';
+        $stmt->bind_result($row['id'], $row['time'], $row['theme'], $row['short_text'], $row['author'], $row['comments']);
+        $stmt->fetch();
+        $title = $row['theme'];
+        $content .= $data->printPost($mysql->connection, $row);
+        $stmt->close();
+    }
 } else {
     $content .= 'Запись не найдена';
 }
