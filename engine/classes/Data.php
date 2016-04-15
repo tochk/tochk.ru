@@ -50,7 +50,7 @@ class Data
         return "<div id='block_news'>" .
         "<div id='block_in_block_news'>" .
         "<div id='block_in_block_news_2'>" .
-        "<div id='block_news_head' style='font-size:20px;'  >{$row['theme']}</div>" .
+        "<div id='block_news_head' style='font-size:20px;'><a href='/blog/show.php?id={$row['id']}'>{$row['theme']}</a></div>" .
         "<div id='block_news_content' style='font-size:16px;'>{$row['short_text']}</div>" .
         "</div></div>" .
         "<div id='block_news_info'>" .
