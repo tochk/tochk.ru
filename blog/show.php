@@ -14,8 +14,16 @@ $mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPa
 $user = new User($mysql);
 $data = new Data();
 $logs->setCreateClasses();
-$content = "";
-
+$query = "SELECT * FROM `users` WHERE `login`=?";
+$stmt = $mysql->connection->prepare($query);
+$stmt->bind_param("s", $login);
+$stmt->execute();
+$stmt->store_result();
+if ($stmt->num_rows != 0) {
+    $_SESSION['reg_err4'] = 1;
+    $flag = 1;
+}
+$stmt->close();
 $page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
 $logs->setEnd();
 $logs->writeToDb($mysql);

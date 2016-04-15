@@ -14,8 +14,21 @@ $mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPa
 $user = new User($mysql);
 $data = new Data();
 $logs->setCreateClasses();
-$content = "";
-
-$page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
+if (isset($_POST['theme'])) {
+    $query = "INSERT INTO `posts` (`theme`, `short_text`, `text`, `time`, `author`) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $mysql->connection->prepare($query);
+    $stmt->bind_param("sssss", $_POST['theme'], $_POST['text2'], $_POST['text'], date("d.m.Y"), $user->login);
+    $stmt->execute();
+    $stmt->close();
+    header("Location: /blog/show.php?id={$mysql->connection->insert_id}");
+} else {
+    $content = "<div id='create_new_post_form'>" .
+        "<form action='/blog/new.php' method='post'>" .
+        "<input id = 'name_news' type='text' placeholder='Заголовок' name='theme'><br>" .
+        "<textarea id= 'text_news' name='text2' placeholder='Краткий текст новости'> </textarea><br>" .
+        "<textarea id= 'text_news' name='text' placeholder='Текст новости'> </textarea><br>" .
+        "<input id='button_news' type='submit' value='Добавить'></form></div>";
+    $page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
+}
 $logs->setEnd();
 $logs->writeToDb($mysql);
