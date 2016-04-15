@@ -13,6 +13,10 @@ $mysql = new Mysql();
 $mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPassword(), $page->getMysqlDb(), $page->debugLevel);
 $user = new User($mysql);
 $data = new Data();
+if ($user->isAdmin != 1) {
+    header('Location: /');
+    exit;
+}
 $logs->setCreateClasses();
 if (isset($_POST['theme'])) {
     $query = "INSERT INTO `posts` (`theme`, `short_text`, `text`, `time`, `author`) VALUES (?, ?, ?, ?, ?)";

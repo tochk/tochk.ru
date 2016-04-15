@@ -13,6 +13,10 @@ $mysql = new Mysql();
 $mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPassword(), $page->getMysqlDb(), $page->debugLevel);
 $user = new User($mysql);
 $data = new Data();
+if ($user->isAdmin != 1) {
+    header('Location: /');
+    exit;
+}
 $logs->setCreateClasses();
 $content = '';
 if (isset($_POST['theme']))
@@ -23,7 +27,6 @@ if (isset($_POST['theme']))
     $stmt->execute();
     $stmt->close();
     header("Location: /blog/show.php?id={$_GET['id']}");
-    exit();
 } else {
     if (isset($_GET['id'])) {
         $query = "SELECT `theme`, `short_text` FROM `posts` WHERE `id`=?";
