@@ -17,7 +17,8 @@ class Logs
     {
         $temp = explode(" ", microtime());
         $this->start = $temp[1] + $temp[0];
-        $this->referer = $_SERVER['HTTP_REFERER'];
+        if (isset($_SERVER['HTTP_REFERER']))
+            $this->referer = $_SERVER['HTTP_REFERER'];
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $this->clientIp = $_SERVER['HTTP_CLIENT_IP'];
         } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
