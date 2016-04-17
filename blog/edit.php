@@ -19,16 +19,16 @@ if ($user->isAdmin != 1) {
 }
 $logs->setCreateClasses();
 $content = '';
-if (isset($_POST['theme']))
-{
-    $query = "UPDATE `posts` SET `theme` = ? , `short_text` = ?  WHERE `id`=?";
-    $stmt = $mysql->connection->prepare($query);
-    $stmt->bind_param("ssd", $_POST['theme'], $_POST['text2'], $_GET['id']);
-    $stmt->execute();
-    $stmt->close();
-    header("Location: /blog/show.php?id={$_GET['id']}");
-} else {
-    if (isset($_GET['id'])) {
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    if (isset($_POST['theme'])) {
+        $query = "UPDATE `posts` SET `theme` = ? , `short_text` = ?  WHERE `id`=?";
+        $stmt = $mysql->connection->prepare($query);
+        $stmt->bind_param("ssd", $_POST['theme'], $_POST['text2'], $_GET['id']);
+        $stmt->execute();
+        $stmt->close();
+        header("Location: /blog/show.php?id={$_GET['id']}");
+    } else {
+
         $query = "SELECT `theme`, `short_text` FROM `posts` WHERE `id`=?";
         $stmt = $mysql->connection->prepare($query);
         $stmt->bind_param("d", $_GET['id']);
@@ -42,16 +42,24 @@ if (isset($_POST['theme']))
             $stmt->bind_result($row['theme'], $row['short_text']);
             $stmt->fetch();
             $title = $row['theme'];
+            $tags = '';
+            $query = "SELECT `name` FROM `tags_name` WHERE `id` IN (SELECT `id` FROM `tags` WHERE `post` = '{$_GET['id']}')";
+            $result = $mysql->connection->query($query);
+            while ($row = $result->fetch_assoc()) {
+                $tags .= "{$row['name']},";
+            }
             $content .= "<div id='create_new_post_form'>" .
                 "<form action='/blog/edit.php?id={$_GET['id']}' method='post'>" .
                 "<input id = 'name_news' type='text' placeholder='Заголовок' name='theme' value='{$row['theme']}'><br>" .
                 "<textarea id= 'text_news' name='text2' placeholder='Текст новости'>{$row['short_text']}</textarea><br>" .
+                "<input id = 'name_news' type='text' placeholder='Тэги, через запятую' name='tags' value='$tags'><br>" .
                 "<input id='button_news' type='submit' value='Добавить'></form></div>";
             $stmt->close();
         }
-    } else {
-        $content .= 'Запись не найдена';
+
     }
+} else {
+    $content .= 'Запись не найдена';
 }
 
 $page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
