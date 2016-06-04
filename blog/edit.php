@@ -2,6 +2,8 @@
 session_start();
 $logs = new Logs();
 $title = "Редактировать запись";
+if (!is_numeric($_GET['id']))
+    exit;
 require($_SERVER['DOCUMENT_ROOT'] . '/engine/helpers.php');
 function __autoload($class_name)
 {
@@ -26,9 +28,41 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $stmt->bind_param("ssd", $_POST['theme'], $_POST['text2'], $_GET['id']);
         $stmt->execute();
         $stmt->close();
+        $tags = explode(",", $_POST['tags']);
+        $query = "DELETE FROM `tags` WHERE `post` = ?";
+        $stmt = $mysql->connection->prepare($query);
+        $stmt->bind_param("d", $_GET['id']);
+        $stmt->execute();
+        $stmt->close();
+        foreach ($tags as $tag) {
+            $tag = trim($tag);
+            $query = "SELECT `id` FROM `tags_name` WHERE `name` LIKE ?";
+            $stmt = $mysql->connection->prepare($query);
+            $stmt->bind_param("s", $tag);
+            $tag_id = 0;
+            $stmt->bind_result($tag_id);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->fetch();
+            if ($stmt->num_rows != 1) {
+                $stmt->close();
+                $query = "INSERT INTO `tags_name` (`name`) VALUES (?)";
+                $stmt = $mysql->connection->prepare($query);
+                $stmt->bind_param("s", $tag);
+                $stmt->execute();
+                $stmt->close();
+                $tag_id = $mysql->connection->insert_id;
+            } else {
+                $stmt->close();
+            }
+            $query = "INSERT INTO `tags` (`id`, `post`) VALUES (?, ?)";
+            $stmt = $mysql->connection->prepare($query);
+            $stmt->bind_param("dd", $tag_id, $_GET['id']);
+            $stmt->execute();
+            $stmt->close();
+        }
         header("Location: /blog/show.php?id={$_GET['id']}");
     } else {
-
         $query = "SELECT `theme`, `short_text` FROM `posts` WHERE `id`=?";
         $stmt = $mysql->connection->prepare($query);
         $stmt->bind_param("d", $_GET['id']);
@@ -38,21 +72,22 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             $content .= 'Запись не найдена';
             $stmt->close();
         } else {
-            $row['theme'] = $row['short_text'] = '';
-            $stmt->bind_result($row['theme'], $row['short_text']);
+            $post['theme'] = $post['short_text'] = '';
+            $stmt->bind_result($post['theme'], $post['short_text']);
             $stmt->fetch();
-            $title = $row['theme'];
+            $title = $post['theme'];
             $tags = '';
             $query = "SELECT `name` FROM `tags_name` WHERE `id` IN (SELECT `id` FROM `tags` WHERE `post` = '{$_GET['id']}')";
             $result = $mysql->connection->query($query);
             while ($row = $result->fetch_assoc()) {
-                $tags .= "{$row['name']},";
+                $tags .= "{$row['name']}, ";
             }
+            $tags = substr($tags, 0, -2);
             $content .= "<div id='create_new_post_form'>" .
                 "<form action='/blog/edit.php?id={$_GET['id']}' method='post'>" .
-                "<input id = 'name_news' type='text' placeholder='Заголовок' name='theme' value='{$row['theme']}'><br>" .
-                "<textarea id= 'text_news' name='text2' placeholder='Текст новости'>{$row['short_text']}</textarea><br>" .
-                "<input id = 'name_news' type='text' placeholder='Тэги, через запятую' name='tags' value='$tags'><br>" .
+                "<input id = 'name_news' type='text' placeholder='Заголовок' name='theme' value=\"{$post['theme']}\"><br>" .
+                "<textarea id= 'text_news' name='text2' placeholder='Текст новости'>{$post['short_text']}</textarea><br>" .
+                "<input id = 'tags_news' type='text' placeholder='Тэги, через запятую' name='tags' value='$tags'><br>" .
                 "<input id='button_news' type='submit' value='Добавить'></form></div>";
             $stmt->close();
         }
