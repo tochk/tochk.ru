@@ -25,7 +25,7 @@ $content = "<br /><div style='text-align: center;'><h1>Логи пользова
 Логи<br /></h3>
 </div>
 <form action='/admin/logs.php?do=show' method='post'><br />
-Введите ID пользователя : <input type='text' name='id' value='{$_POST['id']}' />
+Введите ID пользователя : <input type='text' name='id'/>
 <input type='submit' value=' Показать ' /></form>";
 $page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
 $logs->setEnd();

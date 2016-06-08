@@ -47,10 +47,10 @@ class Data
     public function printPost($connection, $row)
     {
         $postTags = $this->getPostTags($connection, $row['id']);
-        return "<div id='block_news'>" .
+        $text = "<div id='block_news'>" .
         "<div id='block_in_block_news'>" .
         "<div id='block_in_block_news_2'>" .
-        "<div id='block_news_head' style='font-size:20px;'  >{$row['theme']}</div>" .
+        "<div id='block_news_head' style='font-size:20px;'><a href='/blog/show.php?id={$row['id']}'>{$row['theme']}</a></div>" .
         "<div id='block_news_content' style='font-size:16px;'>{$row['short_text']}</div>" .
         "</div></div>" .
         "<div id='block_news_info'>" .
@@ -62,8 +62,13 @@ class Data
         "<div id='data_com'> Comments<br><text_green>{$row['comments']}</text_green></div>" .
         "</div>" .
         "<div id='block_info_footer' style='font-size: 20px;'> read more</div>" .
-        "</div></div>" .
-        "<div id='block_save' style='font-size: 20px;'> Save + </div></div>";
+        "</div></div>";
+        global $user;
+        if ($user->isAdmin == 1)
+            $text .= "<div id='block_save' style='font-size: 20px;cursor: pointer' onclick=\"window.location.href = '/blog/edit.php?id={$row['id']}'\"> Edit </div></div>";
+        else
+            $text .= "</div>";
+        return $text;
     }
 
     public function getPostTags($connection, $postId)
