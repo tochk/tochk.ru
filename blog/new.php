@@ -67,7 +67,7 @@ if (isset($_POST['theme'])) {
         "<input id = 'name_news' type='text' placeholder='Заголовок' name='theme'><br>" .
         "<textarea id = 'text_news' name='text2' placeholder='Краткий текст новости'> </textarea><br>" .
         "<input id = 'tags_news' type='text' placeholder='Тэги, через запятую' name='tags'><br>" .
-        "<input id = 'button_news' type='submit' value='Обновить'></form></div>";
+        "<input id = 'button_news' type='submit' value='Добавить'></form></div>";
     $page->printPage($content, $_SERVER['DOCUMENT_ROOT'] . '/design/html/main.php', $title);
 }
 $logs->setEnd();

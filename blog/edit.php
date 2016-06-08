@@ -88,7 +88,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 "<input id = 'name_news' type='text' placeholder='Заголовок' name='theme' value=\"{$post['theme']}\"><br>" .
                 "<textarea id= 'text_news' name='text2' placeholder='Текст новости'>{$post['short_text']}</textarea><br>" .
                 "<input id = 'tags_news' type='text' placeholder='Тэги, через запятую' name='tags' value='$tags'><br>" .
-                "<input id='button_news' type='submit' value='Добавить'></form></div>";
+                "<input id='button_news' type='submit' value='Обновить'></form></div>";
             $stmt->close();
         }
 
