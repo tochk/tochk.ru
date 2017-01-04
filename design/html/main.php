@@ -71,8 +71,7 @@
     </div>
 </main>
 <footer>
-    powered on tochk.ru<br>
-    design by lenokh
+    design by lenokh // tochk.ru 2015 - <?php echo date("Y") ?>
 </footer>
 </body>
 </html>
