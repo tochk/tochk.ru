@@ -16,8 +16,6 @@
             <?php if($user->isAdmin == 1) { ?>
             <div id="button" onclick="window.location.href='/admin/'">АДМИНКА</div> <?php } ?>
             <div id="button" onclick="window.location.href='/projects/'">ПРОЕКТЫ</div>
-            <div id="button" onclick="window.location.href='/portfolio/'">НАШИ РАБОТЫ</div>
-            <div id="button" onclick="window.location.href='/info/'" style=" height: 41px; padding-top: 9px;">РАЗРАБОТКА САЙТОВ</div>
             <div id="button" onclick="window.location.href='/blog/'">СТАТЬИ</div>
             <div id="button" onclick="window.location.href='/'">ГЛАВНАЯ</div>
         </div>
