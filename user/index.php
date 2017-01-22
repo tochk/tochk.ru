@@ -13,8 +13,7 @@ $page = new Page();
 $mysql = new Mysql();
 $mysql->connect($page->getMysqlHost(), $page->getMysqlLogin(), $page->getMysqlPassword(), $page->getMysqlDb(), $page->debugLevel);
 $user = new User($mysql);
-if (!$user->isLoggedIn())
-{
+if (!$user->isLoggedIn()) {
     header("Location: /");
     exit;
 }

@@ -11,8 +11,7 @@ class User
 
     public function __construct($mysql)
     {
-        if ($this->isLoggedIn())
-        {
+        if ($this->isLoggedIn()) {
             $this->id = $_SESSION['id'];
             $query = "SELECT `login`, `password`, `salt`, `email`, `admin` FROM `users` WHERE `id`=?";
             $stmt = $mysql->connection->prepare($query);
@@ -23,7 +22,7 @@ class User
                 header("Location: /login.php?logout=1");
                 exit;
             }
-            $stmt->bind_result($this->login, $this->password, $this->salt , $this->email, $this->isAdmin);
+            $stmt->bind_result($this->login, $this->password, $this->salt, $this->email, $this->isAdmin);
             $stmt->fetch();
             $stmt->close();
         }
